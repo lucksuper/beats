@@ -27,9 +27,9 @@ import (
 // Event describes the event structure for events
 // (in-)directly send to logstash
 type event struct {
-	Timestamp time.Time     `struct:"@timestamp"`
-	Meta      meta          `struct:"@metadata"`
-	Fields    common.MapStr `struct:",inline"`
+	Timestamp time.Time `struct:"@collectiontime"`
+	//Meta      meta          `struct:"@metadata"`
+	Fields common.MapStr `struct:",inline"`
 }
 
 // Meta defines common event metadata to be stored in '@metadata'
@@ -41,14 +41,15 @@ type meta struct {
 }
 
 func makeEvent(index, version string, in *beat.Event) event {
+
 	return event{
-		Timestamp: in.Timestamp,
-		Meta: meta{
-			Beat:    index,
-			Version: version,
-			Type:    "doc",
-			Fields:  in.Meta,
-		},
+		Timestamp: in.Timestamp.In(time.Local),
+		//Meta: meta{
+		//	Beat:    index,
+		//	Version: version,
+		//	Type:    "doc",
+		//	Fields:  in.Meta,
+		//},
 		Fields: in.Fields,
 	}
 }
