@@ -26,7 +26,7 @@ import (
 )
 
 func MakeTimestampEncoder() func(*time.Time, structform.ExtVisitor) error {
-	formatter, err := dtfmt.NewFormatter("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+	formatter, err := dtfmt.NewFormatter("yyyy-MM-dd'T'HH:mm:ss.SSS'+08:00'")
 	if err != nil {
 		panic(err)
 	}
