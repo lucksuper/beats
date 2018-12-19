@@ -333,7 +333,7 @@ func (h *Harvester) Run() error {
 				if fields == nil {
 					fields = common.MapStr{}
 				}
-				fields["message"] = text
+				fields["@message"] = text
 			}
 
 			data.Event.Fields = fields
