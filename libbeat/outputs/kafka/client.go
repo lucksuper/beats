@@ -178,10 +178,6 @@ func (c *client) getEventMessage(data *publisher.Event) (*message, error) {
 	}
 
 	event.Fields.Delete("beat")
-	event.Fields.Delete("prospector")
-	event.Fields.Delete("input")
-
-	event.Meta = nil
 
 	serializedEvent, err := c.codec.Encode(c.index, event)
 	if err != nil {

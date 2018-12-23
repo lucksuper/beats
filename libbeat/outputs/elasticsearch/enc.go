@@ -65,7 +65,7 @@ type gzipEncoder struct {
 }
 
 type event struct {
-	Timestamp time.Time     `struct:"@timestamp"`
+	Timestamp time.Time     `struct:"@collectiontime"`
 	Fields    common.MapStr `struct:",inline"`
 }
 
@@ -115,6 +115,14 @@ func (b *jsonEncoder) AddRaw(obj interface{}) error {
 	case beat.Event:
 		err = b.folder.Fold(event{Timestamp: v.Timestamp, Fields: v.Fields})
 	case *beat.Event:
+
+		v.Fields.Delete("beat")
+
+		host, _ := v.Fields.GetValue("host.name")
+		if host != nil {
+			v.Fields.Put("host", host)
+		}
+
 		err = b.folder.Fold(event{Timestamp: v.Timestamp, Fields: v.Fields})
 	default:
 		err = b.folder.Fold(obj)
