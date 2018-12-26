@@ -293,7 +293,7 @@ func (h *Harvester) Run() error {
 		// This is important in case sending is not successful so on shutdown
 		// the old offset is reported
 		state := h.getState()
-		startingOffset := state.Offset
+		//startingOffset := state.Offset
 		state.Offset += int64(message.Bytes)
 
 		// Create state event
@@ -307,8 +307,8 @@ func (h *Harvester) Run() error {
 		// Check if data should be added to event. Only export non empty events.
 		if !message.IsEmpty() && h.shouldExportLine(text) {
 			fields := common.MapStr{
-				"source": state.Source,
-				"offset": startingOffset, // Offset here is the offset before the starting char.
+				"path": state.Source,
+				//"offset": startingOffset, // Offset here is the offset before the starting char.
 			}
 			fields.DeepUpdate(message.Fields)
 
