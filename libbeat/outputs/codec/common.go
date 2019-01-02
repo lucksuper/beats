@@ -33,7 +33,7 @@ func MakeTimestampEncoder() func(*time.Time, structform.ExtVisitor) error {
 
 	buf := make([]byte, 0, formatter.EstimateSize())
 	return func(t *time.Time, v structform.ExtVisitor) error {
-		tmp, err := formatter.AppendTo(buf, (*t).Local())
+		tmp, err := formatter.AppendTo(buf, (*t).UTC())
 		if err != nil {
 			return err
 		}
