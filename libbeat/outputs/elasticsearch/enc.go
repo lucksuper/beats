@@ -65,7 +65,7 @@ type gzipEncoder struct {
 }
 
 type event struct {
-	Timestamp time.Time     `struct:"@collectiontime"`
+	Timestamp time.Time     `struct:"@harvesttime"`
 	Fields    common.MapStr `struct:",inline"`
 }
 
